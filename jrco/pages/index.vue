@@ -1,0 +1,9 @@
+<template>
+  <div>
+    <SectionsLandingPage/>
+    <SectionsServices/>
+    <SectionsClients/>
+    <SectionsProjects/>
+    <SectionsContact/>
+  </div>
+</template>
