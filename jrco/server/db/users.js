@@ -42,7 +42,7 @@ if (getUserByEmail) {
     const resetToken = crypto.randomBytes(32).toString('hex')
     const resetTokenExpiry = new Date(Date.now() + 3600000) // 1 hour from now
   
-    await prisma.user.update({
+    prisma.user.update({
       where: { id: user.id },
       data: {
         resetToken,
@@ -52,11 +52,11 @@ if (getUserByEmail) {
   
     // Step 4: Send password reset email
     const resetUrl = `https://example.com/reset-password?token=${resetToken}`
-    await sendResetEmail(user.email, resetUrl)
+    sendResetEmail(user.email, resetUrl)
   }
   
   // Step 6: Update password if reset token is valid
-  const user = await prisma.user.findUnique({
+  const user = prisma.user.findUnique({
     where: {
       resetToken: 'abcd1234',
       resetTokenExpiry: {
@@ -66,7 +66,7 @@ if (getUserByEmail) {
   })
   
   if (user) {
-    await prisma.user.update({
+    prisma.user.update({
       where: { id: user.id },
       data: {
         password: 'newpassword',
